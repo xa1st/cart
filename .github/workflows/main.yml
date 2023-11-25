@@ -23,4 +23,7 @@ jobs:
         
       - name: 打包发布
         run: yarn build
+
+      - name: 开始拉取gitpages环境
+        uses: actions/configure-pages@v3
         
