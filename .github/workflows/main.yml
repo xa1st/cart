@@ -29,15 +29,15 @@ jobs:
       - name: 打包发布
         run: yarn build
 
-      - name: 开始拉取gitpages环境
+      - name: 启用页面并提取有关站点的各种元数据
         uses: actions/configure-pages@v3
 
-      - name: Upload artifact
+      - name: 上传页面工件
         uses: actions/upload-pages-artifact@v2
         with:
           path: './dist'
 
-      - name: Deploy to GitHub Pages
+      - name: 部署到GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
         
