@@ -1,0 +1,69 @@
+// 全局主色调
+$color-primary: #007aff;
+
+// 基本色
+$text-color:#333;
+// 反色
+$text-color-inverse:#fff;
+// 辅助灰色，如加载更多的提示信息
+$text-color-grey:#999;
+// 占位字符颜色
+$text-color-placeholder: #808080;
+// 不可用色
+$text-color-disable:#c0c0c0;
+
+// 背景主色
+$bg-color:#ffffff;
+// 背景灰色
+$bg-color-grey: #F2F2F2;
+// 点击状态颜色
+$bg-color-hover:#f1f1f1;
+//遮罩颜色
+$bg-color-mask:rgba(0, 0, 0, .6);
+
+// 边框颜色
+$border-color:#c8c7cc;
+
+// 边框圆角
+$border-radius: 0.2rem;
+
+
+// 通用元素样式设计
+*, *::before, *::after {box-sizing: border-box; margin: 0; font-weight: normal;}
+
+html {width: 100vw;}
+body {min-height: 100vh;font-size: 15px; background-color: $bg-color-grey;}
+
+// 位置相关
+.fixed {position: fixed}
+.relative {position: relative;}
+.absolute {position: absolute}
+
+// 布局相关
+.flex {display:flex;}
+.flex-col {flex-direction:column}
+.flex-row {flex-direction:row}
+.flex-wrap {flex-wrap:wrap}
+	
+.justify-start {justify-content:flex-start}
+.justify-center {justify-content:center}
+.justify-end {justify-content:flex-end}
+.justify-evenly {justify-content:space-evenly}
+.justify-around {justify-content:space-around}
+.justify-between {justify-content:space-between}
+
+// 文字排列
+.text-center {text-align: center;}
+.text-left {text-align: left;}
+.text-right {text-align: right;}
+
+// 字符着重
+.val {color: $color-primary; padding: 0 .16rem;}
+.radius{border-radius: $border-radius;}
+
+// 默认边距
+.padding-24 {padding: 0 .8rem;}
+.iconfont {padding: 0 .5rem;}
+
+// 默认容器大小
+#app {max-width: 1280px; margin: 0 auto; font-weight: normal;}
