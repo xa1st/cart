@@ -19,18 +19,18 @@ jobs:
     steps:
       - name: 通用的代码拉取
         uses: actions/checkout@v4
-    
+
       - name: 安装nodejs 18.x版本
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-
+      
       - name: 安装依赖
         run: yarn
-
+      
       - name: 发布
       - run: yarn build
-
+      
       - name: Setup Pages
         uses: actions/configure-pages@v3
 
@@ -38,7 +38,5 @@ jobs:
         uses: actions/upload-pages-artifact@v2
         with:
           path: './dist'
-
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v2
