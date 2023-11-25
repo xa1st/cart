@@ -1,42 +1,17 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: 部署到gitpages
-
 on:
   push:
     branches: 
       - main
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     runs-on: ubuntu-latest
-
+        
     steps:
       - name: 通用的代码拉取
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v3
+    
       - name: 安装nodejs 18.x版本
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      
-      - name: 安装依赖
-        run: yarn
-      
-      - name: 发布
-      - run: yarn build
-      
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: './dist'
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v2
