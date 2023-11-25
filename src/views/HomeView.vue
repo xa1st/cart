@@ -33,7 +33,7 @@
 
   <!-- 遮罩层 -->
   <div class="mask" @click="close" v-if="mask"></div>
-
+  
 </template>
 
 <script setup lang="ts">
@@ -45,6 +45,10 @@
   import cartList from '@/components/cartList.vue';
 
   import inputBox from '@/components/inputBox.vue';
+
+  import { vuepop } from 'vue3-popup';
+
+  import 'vue3-popup/lib/style.css';
 
   // 加载store
   const cartStore = useCartStore();
@@ -63,9 +67,6 @@
 
   // 总价
   const sum = computed<string>(() => cartStore.sum.toFixed(2));
-
-  // 清理事件
-  const clear = () => cartStore.$reset();
 
   // 加减按钮
   const change = (index:number, act: string) => act == 'inc' ? cartStore.num(index, 1) : cartStore.num(index, 2);;
@@ -88,15 +89,31 @@
     actBox(1);
   };
 
+  // 清理事件
+  const clear = () => {
+    vuepop({
+      title: '重要',
+      msg: '是否要清空购物清单?',
+      okText: '确定',
+      ok: () => cartStore.$reset()
+    });
+  }
+
   // 删除内容
-  const del = (i: number) => cartStore.del(i);
+  const del = (i: number) => {
+    vuepop({
+      title: '重要',
+      msg: '是否要删除商品【' + cartStore.datalist[i].title + '】?',
+      okText: '确定',
+      ok: () => cartStore.del(i)
+    });
+  }
 
   // 新增
   const addItem = () => {
+    
     // 重置数据
-    goodItem.title = '';
-    goodItem.price = 0;
-    goodItem.num = 0;
+    goodReset();
 
     // 打开弹窗
     actBox(1);
@@ -106,10 +123,14 @@
   // 更新数据
   const submit = (good: Good, index: string) => {
 
+
     if (index === '') {
 
       // 新增数据
       cartStore.add({title: good.title, price: good.price, num: good.num});
+
+      // 重置数据
+      goodReset();
 
     } else {
 
@@ -118,8 +139,7 @@
 
     }
 
-    // 关闭弹窗
-    actBox(0);
+    actBox(0);    
 
   }
 
@@ -129,6 +149,14 @@
 		actBox(0);
 	}
 
+  // 数据重置
+  const goodReset = () => {
+    // 重置数据
+    goodItem.title = '';
+    goodItem.price = 0;
+    goodItem.num = 0;
+  }
+
 
   // 打开弹窗
   const actBox = (act: number = 1) => {
@@ -136,6 +164,11 @@
     combox.value = act == 1;
 
     mask.value = act == 1;
+    
+  }
+
+
+  const ttt = () => {
     
   }
 

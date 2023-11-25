@@ -14,7 +14,7 @@
 <script lang="ts" setup>
 
   import utils from '@/utils/utils';
-  import { computed } from 'vue';
+  import { ref, computed, reactive } from 'vue';
 
   // 定义props
   const props = defineProps<{
@@ -28,12 +28,14 @@
     (e: 'submit', good: Good, index: string): void
   }>()
 
+  const goodItem = reactive<Good>({title: '', price: 0, num: 0});
+
   // 对应的商品信息
   const good = computed<{title: string, price: string, num: number}>(() => {
     return {
-      title: props.good.title, 
-      price: props.good.price != 0 ? props.good.price.toFixed(2) : '', 
-      num: props.good.num
+      title: goodItem.title || props.good.title, 
+      price: (goodItem.price != 0 ? goodItem.price.toFixed(2) : '') || (props.good.price != 0 ? props.good.price.toFixed(2) : ''), 
+      num: goodItem.num || props.good.num
     }
   });
 
@@ -58,13 +60,13 @@
   const format = (name: string = '') => {
 
     // 标题
-    if (name == 'title' && good.value.title) good.value.title = utils.trim(good.value.title);
+    if (name == 'title' && good.value.title) goodItem.title = utils.trim(good.value.title);
 
     // 数量
-    if (name == 'num' && good.value.num) good.value.num = good.value.num;
+    if (name == 'num' && good.value.num) goodItem.num = good.value.num;
 
     // 价格
-    if (name == 'price' && good.value.price) good.value.price = parseFloat(good.value.price).toFixed(2);
+    if (name == 'price' && good.value.price) goodItem.price = parseFloat(good.value.price);
 
   }
 
@@ -109,7 +111,7 @@
 			line-height: 2rem;
 			height: 2.5rem;
 			margin: 1rem auto;
-			border: rgba(0, 0, 0, .2) solid 2px;
+			border: #F2F2F2 solid 2px;
       display: block;
       width: 100%;
       color: #666;
