@@ -71,7 +71,7 @@
 
   .editbox {
     width: 90%;
-    min-height: 38vh;
+    min-height: 19.5rem;
     margin: 15vh auto; 
     z-index: 2;
     position: absolute;
