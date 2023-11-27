@@ -6,19 +6,26 @@ v1.0.1
 ### 作者
 猫东东 <https://blog.del.pub>
 
+### 功能说明
+用于线下购物时临时计算一下自己的商品，就用来在有优惠券的时候凑单用
+
 ### 最后更新 
 
 2023.11.27
 
 ### 使用方法
 
-  git clone https://github.com/afyi/cart.git
+```bash
 
-  cd cart
+git clone https://github.com/afyi/cart.git
 
-  yarn
+cd cart
 
-  yarn dev 
+yarn
+
+yarn dev 
+
+```
 
 ### 更新历史
 
