@@ -18,6 +18,11 @@
       <text>添加商品</text>
     </div>
 
+    <!-- 版权 -->
+    <div class="copyright text-center">
+      <a href="https://blog.del.pug" target="_blank" title="联系我">猫南南</a> 🍭 <a href="javascript:void(0)">访问<span id="busuanzi_value_page_pv" title="已读次数"></span>次</a> 🍵 <a href="https://github.com/afyi/cart" target="_blank" title="该项目的github">GITHUB</a>
+    </div>
+
   </section>
 
   <footer>
@@ -189,4 +194,5 @@
   .addItem { width: 100%; background-color: $color-primary; line-height: 3rem; margin: .8rem auto; color:$bg-color;}
   .mask {width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; right: 0; z-index: 1; background-color: $bg-color-mask;}
   .editbox .addbtn {background-color: $color-primary;}
+  .copyright a{color: #bbb;text-decoration: none;font-size: .85rem;}
 </style>

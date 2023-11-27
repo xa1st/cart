@@ -1,20 +1,32 @@
 小小购物车
 
 ### 版本
-v1.0.0 
+v1.0.1 
 
 ### 作者
 猫东东 <https://blog.del.pub>
 
 ### 最后更新 
-2023-11-25
+
+2023.11.27
 
 ### 使用方法
-用uniapp导入然后发布
+
+  git clone https://github.com/afyi/cart.git
+
+  cd cart
+
+  yarn
+
+  yarn dev 
 
 ### 更新历史
 
-v1.0.0 2023-11-25
+v1.0.1 2023.11.27
+
+1. 用VUE重写一下，用uniapp太麻烦了
+
+v1.0.0 2023.11.25
 
 1. 第一版本算法
 
