@@ -29,7 +29,7 @@
   </footer>
 
   <!-- 弹框 -->
-  <input-box :class="{ show: combox ? 'show': '' }" :good="goodItem" :index="index" @close="close" @submit="submit"></input-box>
+  <input-box :class="{ show: combox ? 'show': '' }" :good="goodItem" :index="index" @close="close" @submit="submit" v-if="combox"></input-box>
 
   <!-- 遮罩层 -->
   <div class="mask" @click="close" v-if="mask"></div>
@@ -129,9 +129,6 @@
       // 新增数据
       cartStore.add({title: good.title, price: good.price, num: good.num});
 
-      // 重置数据
-      goodReset();
-
     } else {
 
       // 这里是修改
@@ -139,6 +136,10 @@
 
     }
 
+    // 重置数据
+    goodReset();
+
+    // 关闭弹窗
     actBox(0);    
 
   }
@@ -154,7 +155,7 @@
     // 重置数据
     goodItem.title = '';
     goodItem.price = 0;
-    goodItem.num = 0;
+    goodItem.num = 1;
   }
 
 

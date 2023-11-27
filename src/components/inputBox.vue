@@ -1,10 +1,10 @@
 <template>
-  <div class="editbox text-center padding-24">
+  <div class="editbox text-center padding-24 show">
     <div class="title">{{ title }}</div>
 
-    <input type="text" class="input radius text-center" placeholder="请输入商品的名称,必填" v-model="good.title" @blur="format('title')"/>
-		<input type="number" class="input radius text-center" placeholder="请输入商品的价格,单位:元,默认0.00" v-model="good.price" @blur="format('price')"/>
-		<input type="number" class="input radius text-center" placeholder="请输入商品的数量,默认为1" v-model="good.num" @blur="format('num')"/>
+    <input type="text" class="input radius text-center" placeholder="请输入商品的名称,必填" v-model.trim="good.title"/>
+		<input type="number" class="input radius text-center" placeholder="请输入商品的价格,单位:元,默认0.00" v-model.number="good.price"/>
+		<input type="number" class="input radius text-center" placeholder="请输入商品的数量,默认为1" v-model.number="good.num"/>
 		<div class="addbtn text-center radius" @click.stop="submit">我填好了啦 ^_^</div>
 		<div class="closebtn" @click.stop="close"><i class="iconfont cartclose"/></div>
     
@@ -13,8 +13,12 @@
 
 <script lang="ts" setup>
 
-  import utils from '@/utils/utils';
-  import { ref, computed, reactive } from 'vue';
+  import { computed  } from 'vue';
+
+  import { vuemsg } from 'vue3-popup';
+
+  import 'vue3-popup/lib/style.css';
+
 
   // 定义props
   const props = defineProps<{
@@ -22,22 +26,22 @@
     index: string
   }>();
 
+
   // 定义子组件传递事件
   const emit = defineEmits<{
-    (e: 'close'): void
+    (e: 'close'): void,
     (e: 'submit', good: Good, index: string): void
   }>()
 
-  const goodItem = reactive<Good>({title: '', price: 0, num: 0});
-
-  // 对应的商品信息
-  const good = computed<{title: string, price: string, num: number}>(() => {
-    return {
-      title: goodItem.title || props.good.title, 
-      price: (goodItem.price != 0 ? goodItem.price.toFixed(2) : '') || (props.good.price != 0 ? props.good.price.toFixed(2) : ''), 
-      num: goodItem.num || props.good.num
+  const good = computed<Good>({
+    set(value) {
+      console.log(value);
+    },
+    get() {
+      return {title: props.good.title, price: props.good.price, num: props.good.num};
     }
   });
+
 
   // 当前的标题
   const title = computed<string> (() => props.good.title.length > 0 ? '修改商品' : '新增商品');
@@ -48,27 +52,18 @@
   // 提交数据
   const submit = () => {
 
+    let data = good.value;
+
     // 验证名称
-    if (good.value.title == '') return console.log('标题不能为空');
+    if (data.title == '') return vuemsg('标题不能为空');
+
+    if (data.num != Math.trunc(data.num)) return vuemsg('数量不能有小数');
 
     // 提交数据
-    emit('submit', {title: good.value.title, price: parseFloat(good.value.price || '0.00'), num: good.value.num || 1}, props.index);
+    emit('submit', {title: data.title, price: data.price || 0, num: data.num || 1}, props.index);
 
   }
 
-  // 格式化数据
-  const format = (name: string = '') => {
-
-    // 标题
-    if (name == 'title' && good.value.title) goodItem.title = utils.trim(good.value.title);
-
-    // 数量
-    if (name == 'num' && good.value.num) goodItem.num = good.value.num;
-
-    // 价格
-    if (name == 'price' && good.value.price) goodItem.price = parseFloat(good.value.price);
-
-  }
 
 </script>
 
@@ -76,7 +71,7 @@
 
   .editbox {
     width: 90%;
-    min-height: 35vh;
+    min-height: 48vh;
     margin: 15vh auto; 
     z-index: 2;
     position: absolute;
