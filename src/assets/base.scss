@@ -27,6 +27,9 @@ $border-color:#c8c7cc;
 // 边框圆角
 $border-radius: 0.2rem;
 
+// 最大宽度
+$max-width: 1280px; 
+
 
 // 通用元素样式设计
 *, *::before, *::after {box-sizing: border-box; margin: 0; font-weight: normal;}
@@ -57,4 +60,4 @@ body {min-height: 100vh;font-size: 15px; background-color: $bg-color-grey;}
 input:focus {outline:1px solid $color-primary}
 
 // 默认容器大小
-#app {max-width: 1280px; margin: 0 auto; font-weight: normal;}
+#app {max-width: $max-width; margin: 0 auto; font-weight: normal;}

@@ -25,9 +25,9 @@
 
   </section>
 
-  <footer>
+  <footer class="fixed tool ">
     <!-- 总计 -->
-    <div class="tool fixed flex justify-between padding-24">
+    <div class="flex justify-between padding-24">
 			<div class="num">共计：<span class="val">{{ cartStore.total }}</span>件商品</div>
 			<div class="sum">总计：<span class="val">{{ sum }}</span>元</div>
 		</div>
@@ -186,7 +186,7 @@
   @import '@/assets/base.scss';
   // 加载图标
 	@import '@/assets/icon/iconfont.css';
-
+  header, section, footer {max-width: $max-width;}
   .titbox, .tool {width: 100%; background-color: $bg-color; height: 3.5rem; line-height: 3.5rem;}
   .titbox .clear {right: .8rem;top: 0;}
   .tool {bottom: 0;}
