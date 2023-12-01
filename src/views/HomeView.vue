@@ -187,10 +187,10 @@
   // 加载图标
 	@import '@/assets/icon/iconfont.css';
 
-  .titbox, .tool {width: 100vw; background-color: $bg-color; height: 3.5rem; line-height: 3.5rem;}
+  .titbox, .tool {width: 100%; background-color: $bg-color; height: 3.5rem; line-height: 3.5rem;}
   .titbox .clear {right: .8rem;top: 0;}
   .tool {bottom: 0;}
-  .section {width: 100vw;}
+  .section {width: 100%;}
   .addItem { width: 100%; background-color: $color-primary; line-height: 3rem; margin: .8rem auto; color:$bg-color;}
   .mask {width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; right: 0; z-index: 1; background-color: $bg-color-mask;}
   .editbox .addbtn {background-color: $color-primary;}
