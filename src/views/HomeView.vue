@@ -20,12 +20,12 @@
 
     <!-- 版权 -->
     <div class="copyright text-center">
-      <a href="https://blog.del.pug" target="_blank" title="联系我">猫南南</a> 🍭 <a href="javascript:void(0)">访问<span id="busuanzi_value_page_pv" title="已读次数"></span>次</a> 🍵 <a href="https://github.com/afyi/cart" target="_blank" title="该项目的github">GITHUB</a>
+      <a href="https://github.com/afyi/cart" target="_blank" title="该项目的github">小小购物车 V{{ $VERSION }}</a><a href="https://blog.del.pug" target="_blank" title="联系我"> @ 猫南南</a>
     </div>
 
   </section>
 
-  <footer class="fixed tool ">
+  <footer class="fixed tool">
     <!-- 总计 -->
     <div class="flex justify-between padding-24">
 			<div class="num">共计：<span class="val">{{ cartStore.total }}</span>件商品</div>
@@ -34,7 +34,7 @@
   </footer>
 
   <!-- 弹框 -->
-  <input-box :class="{ show: combox ? 'show': '' }" :good="goodItem" :index="index" @close="close" @submit="submit" v-if="combox"></input-box>
+  <input-box :class="{ show: combox ? 'show': '' }" :good="goodItem" :index="index" @close="close" @submit="submit" v-show="combox"></input-box>
 
   <!-- 遮罩层 -->
   <div class="mask" @click="close" v-if="mask"></div>

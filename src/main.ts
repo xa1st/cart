@@ -15,5 +15,8 @@ const pinia = createPinia();
 // pinia持久化处理
 pinia.use(createPersistedState({storage: window.localStorage}));
 
+// 把版本号挂在全局 
+app.config.globalProperties.$VERSION = <String>"1.0.2";
+
 // 挂载
 app.use(pinia).use(router).mount('#app');
