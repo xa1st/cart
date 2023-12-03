@@ -20,7 +20,7 @@
 
     <!-- 版权 -->
     <div class="copyright text-center">
-      <a href="https://github.com/afyi/cart" target="_blank" title="该项目的github">小小购物车 V{{ $VERSION }}</a><a href="https://blog.del.pug" target="_blank" title="联系我"> @ 猫南南</a>
+      <a href="https://github.com/afyi/cart" target="_blank" title="该项目的github">小小购物车 V{{ $VERSION }}</a><a href="https://blog.del.pug" target="_blank" title="联系我"> @ 猫东东</a>
     </div>
 
   </section>
