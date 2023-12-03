@@ -10,8 +10,6 @@ declare module 'vue' {
     CartList: typeof import('./src/components/cartList.vue')['default']
     Dialog: typeof import('./src/components/dialog.vue')['default']
     DialogBox: typeof import('./src/components/dialogBox.vue')['default']
-    ElButton: typeof import('element-plus/es')['ElButton']
-    ElDialog: typeof import('element-plus/es')['ElDialog']
     InputBox: typeof import('./src/components/inputBox.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
