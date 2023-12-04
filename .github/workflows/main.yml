@@ -1,4 +1,4 @@
-name: 部署到netlify
+name: 部署到gitpage
 
 on:
   push:
