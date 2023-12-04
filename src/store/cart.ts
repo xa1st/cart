@@ -20,6 +20,8 @@ export const useCartStore = defineStore('cart', () => {
 					
 			// 单位转化为分，防止浮点数计算错误
 			let money: number = item.price * 100;
+
+			if (typeof item.num != 'number') return; 
 			
       // 计算总价
 			sum += money * item.num;
@@ -39,7 +41,7 @@ export const useCartStore = defineStore('cart', () => {
 		// 计算一下总价
 		state.datalist.forEach((item: Good) => {
 						
-			total += item.num;
+			total += typeof item.num == 'number' ? item.num : 0;
 			
 		});
 		
@@ -59,7 +61,7 @@ export const useCartStore = defineStore('cart', () => {
 		if (ind == -1) {
 
 			// 价格计算
-			let price: Number = Math.round((data.price * 100)) / 100;
+			let price: number = Math.round((data.price * 100)) / 100;
 			
 			state.datalist.push(<Good>{
 				title: utils.trim(data.title), 
@@ -80,8 +82,9 @@ export const useCartStore = defineStore('cart', () => {
 		// 没有值就直接返回
 		if (i === "") return;
 
+		let ind: number = parseInt(i);
 		// 添加新值
-		state.datalist[parseInt(i)] = data;
+		state.datalist[ind] = data;
 	}
 
   // 删除指定的方法

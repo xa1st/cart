@@ -2,6 +2,6 @@
 interface Good {
   title: string,
   price: number,
-  num: number | string,
+  num: number,
   priceTxt: string, // 价格文字
-};
+}

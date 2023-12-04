@@ -2,9 +2,9 @@
   <div class="editbox text-center padding-24 show">
     <div class="title">{{ title }}</div>
 
-    <input type="text" class="input radius text-center" placeholder="请输入商品的名称,必填" :value.trim="good.title" @blur="editTit"/>
-		<input type="number" class="input radius text-center" placeholder="请输入商品的价格,单位:元,默认0.00" :value.number="good.price == 0 ? '' : good.price.toFixed(2)" @blur="editPrice"/>
-		<input type="number" class="input radius text-center" placeholder="请输入商品的数量,默认为1" :value.number="good.num === '' ? '' : good.num " @blur="editNum"/>
+    <input type="text" class="input radius text-center" autocomplete="off" placeholder="请输入商品的名称,必填" :value.trim="good.title" @blur="editTit"/>
+		<input type="number" class="input radius text-center" autocomplete="off" placeholder="请输入商品的价格,单位:元,默认0.00" :value.number="good.priceTxt" @blur="editPrice"/>
+		<input type="number" class="input radius text-center" autocomplete="off" placeholder="请输入商品的数量,默认为1" :value.number="good.num == -1 ? '' : good.num " @blur="editNum"/>
 		<div class="addbtn text-center radius" @click.stop="submit">我填好了啦 ^_^</div>
 		<div class="closebtn" @click.stop="close"><i class="iconfont cartclose"/></div>
     
@@ -38,7 +38,7 @@
     },
     get() {
       let good = props.good;
-      return {title: good.title, price: good.price, num: good.num, priceTxt: good.price.toFixed(2)};
+      return {title: good.title, price: good.price, num: good.num, priceTxt: good.priceTxt};
     }
   });
 
@@ -53,6 +53,8 @@
   // 更新标题
   const editTit = (e: any) => {
 
+    console.log("======editTit", e.target.value);
+
     let value = utils.trim(e.target.value);
 
     good.value.title = value;
@@ -61,6 +63,8 @@
 
   // 更新价格
   const editPrice = (e: any) => {
+
+    console.log("======editPrice", e.target.value);
 
     let value = utils.trim(e.target.value);
 
@@ -72,10 +76,13 @@
 
     // 写值给good.pricetxt
     good.value.priceTxt = good.value.price.toFixed(2);
+
   }
 
   // 更新数量
   const editNum = (e: any) => {
+
+    console.log("======editNum", e.target.value);
     
     let value = utils.trim(e.target.value);
 
@@ -89,10 +96,8 @@
 
     let data = good.value;
 
-    console.log(good.value);
-
     // 提交数据
-    emit('submit', {title: data.title, price: data.price, num: (data.num === '' ? 1 : data.num), priceTxt: data.price.toFixed(2)}, props.index);
+    emit('submit', {title: data.title, price: data.price, num: (data.num == -1 ? 1 : data.num), priceTxt: data.price.toFixed(2)}, props.index);
 
   }
 

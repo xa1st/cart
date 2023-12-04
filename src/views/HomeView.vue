@@ -68,7 +68,7 @@
   const index = ref<string>("");
 
   // 商品信息， 此处给num -1 是为了默认为
-	const goodItem = reactive<Good>({title: '', price: 0, num: '', priceTxt: '0.00'});
+	const goodItem = reactive<Good>({title: '', price: 0, num: -1, priceTxt: '0.00'});
 
   // 总价
   const sum = computed<string>(() => cartStore.sum.toFixed(2));
@@ -89,6 +89,7 @@
     goodItem.title = good.title;
     goodItem.price = good.price;
     goodItem.num = good.num;
+    goodItem.priceTxt = good.price.toFixed(2);
 
     // 当前操作的数据排序
     index.value = i.toString();
@@ -131,15 +132,17 @@
   // 更新数据
   const submit = (good: Good, index: string) => {
 
-    console.log(good);
-
     // 验证名称
     if (good.title == '') return vuemsg('标题不能为空');
 
-    // 判定数量是否存在小数
-    let num = good.num?.toString();
+    // 判定价格格式是否正确
+    if (!/^\d+(\.\d{0,2})?$/.test(good.price.toString())) return vuemsg('价格格式不正确');
 
-    if (parseFloat(num) != parseInt(num)) return vuemsg('数量不能有小数');
+    // 判定数量是否存在小数
+    if (!/^\d+$/.test(good.num.toString())) return vuemsg('数量格式不正确');
+
+
+    console.log(good);
 
     if (index === '') {
 
@@ -172,7 +175,7 @@
     // 重置数据
     goodItem.title = '';
     goodItem.price = 0;
-    goodItem.num = '';
+    goodItem.num = -1;
     goodItem.priceTxt = ''
   }
 
