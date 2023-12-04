@@ -37,8 +37,7 @@
       emit('update:good', value);
     },
     get() {
-      let good = props.good;
-      return {title: good.title, price: good.price, num: good.num, priceTxt: good.priceTxt};
+      return props.index === '' ? {title: '', price: 0, num: -1, priceTxt: ''} : props.good;
     }
   });
 

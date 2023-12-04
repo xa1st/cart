@@ -34,7 +34,7 @@
   </footer>
 
   <!-- 弹框 -->
-  <input-box v-model:good="goodItem" :index="index" @close="close" @submit="submit" v-show="combox"></input-box>
+  <input-box v-model:good="goodItem" v-model:index="index" @close="close" @submit="submit" v-show="combox"></input-box>
 
   <!-- 遮罩层 -->
   <div class="mask" :style="{height: bgHeight}" @click="close" v-show="mask"></div>
@@ -54,6 +54,7 @@
   import { vuepop, vuemsg } from 'vue3-popup';
 
   import 'vue3-popup/lib/style.css';
+import { watch } from 'vue';
 
   // 加载store
   const cartStore = useCartStore();
@@ -141,20 +142,7 @@
     // 判定数量是否存在小数
     if (!/^\d+$/.test(good.num.toString())) return vuemsg('数量格式不正确');
 
-
-    console.log(good);
-
-    if (index === '') {
-
-      // 新增数据
-      cartStore.add(good);
-
-    } else {
-
-      // 这里是修改
-		  cartStore.update(good, index);
-
-    }
+    index === '' ? cartStore.add(good) : cartStore.update(good, index);
 
     // 重置数据
     goodReset();
@@ -176,7 +164,8 @@
     goodItem.title = '';
     goodItem.price = 0;
     goodItem.num = -1;
-    goodItem.priceTxt = ''
+    goodItem.priceTxt = '';
+    index.value = '';
   }
 
 
@@ -186,9 +175,15 @@
     combox.value = act == 1;
 
     mask.value = act == 1;
+
+    // 关闭弹窗的时候就直接重置变量
+    if (act == 0) goodReset();
     
   }
 
+  watch(index, (newX) => {
+    console.log(newX);
+  }, {deep: true})
 
 </script>
 
@@ -204,7 +199,7 @@
   .tool {bottom: 0;}
   .section {width: 100%;}
   .addItem { width: 100%; background-color: $color-primary; line-height: 3rem; margin: .8rem auto; color:$bg-color;}
-  .mask {width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; right: 0; z-index: 1; background-color: $bg-color-mask;}
+  .mask {width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; right: 0; z-index: 1; background-color: $bg-color-mask;}
   .editbox .addbtn {background-color: $color-primary;}
   .copyright{margin-bottom: 4rem;}
   .copyright a{color: #bbb;text-decoration: none;font-size: .85rem;}
