@@ -192,5 +192,6 @@ import { watch } from 'vue';
   .addItem { width: 100%; background-color: $color-primary; line-height: 3rem; margin: .8rem auto; color:$bg-color;}
   .mask {width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; right: 0; z-index: 1; background-color: $bg-color-mask;}
   .editbox .addbtn {background-color: $color-primary;}
+  .copyright{margin-bottom: 4rem;}
   .copyright a{color: #bbb;text-decoration: none;font-size: .85rem;}
 </style>
