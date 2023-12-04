@@ -2,9 +2,9 @@
   <div class="editbox text-center padding-24 show">
     <div class="title">{{ title }}</div>
 
-    <input type="text" class="input radius text-center" placeholder="请输入商品的名称,必填" v-model.trim="good.title"/>
-		<input type="number" class="input radius text-center" placeholder="请输入商品的价格,单位:元,默认0.00" v-model.number="good.price"/>
-		<input type="number" class="input radius text-center" placeholder="请输入商品的数量,默认为1" v-model.number="good.num"/>
+    <input type="text" class="input radius text-center" placeholder="请输入商品的名称,必填" :value.trim="good.title" @blur="editTit"/>
+		<input type="number" class="input radius text-center" placeholder="请输入商品的价格,单位:元,默认0.00" :value.number="good.price == 0 ? '' : good.price.toFixed(2)" @blur="editPrice"/>
+		<input type="number" class="input radius text-center" placeholder="请输入商品的数量,默认为1" :value.number="good.num == 0 ? '' : good.num " @blur="editNum"/>
 		<div class="addbtn text-center radius" @click.stop="submit">我填好了啦 ^_^</div>
 		<div class="closebtn" @click.stop="close"><i class="iconfont cartclose"/></div>
     
@@ -13,12 +13,13 @@
 
 <script lang="ts" setup>
 
-  import { computed  } from 'vue';
+  import { computed } from 'vue';
 
   import { vuemsg } from 'vue3-popup';
 
-  import 'vue3-popup/lib/style.css';
+  import utils from '@/utils/utils';
 
+  import 'vue3-popup/lib/style.css';
 
   // 定义props
   const props = defineProps<{
@@ -26,19 +27,22 @@
     index: string
   }>();
 
+  // defineEmits(['update:title'])
 
   // 定义子组件传递事件
   const emit = defineEmits<{
     (e: 'close'): void,
-    (e: 'submit', good: Good, index: string): void
+    (e: 'submit', good: Good, index: string): void,
+    (e: 'update:good', good: Good): void
   }>()
 
   const good = computed<Good>({
     set(value) {
-      console.log(value);
+      emit('update:good', value);
     },
     get() {
-      return {title: props.good.title, price: props.good.price, num: props.good.num};
+      return props.good;
+      
     }
   });
 
@@ -49,6 +53,41 @@
   // 关闭窗口
   const close = () => emit('close');
 
+
+  // 更新标题
+  const editTit = (e: any) => {
+
+    let value = utils.trim(e.target.value);
+
+    good.value.title = value;
+
+  }
+
+  // 更新价格
+  const editPrice = (e: any) => {
+
+    let value = utils.trim(e.target.value);
+
+    // 如果没填，则直接为0.00
+    if (value === '') value = '0.00';
+
+    // 写值给good
+    good.value.price = parseFloat(value);
+
+    // 写值给good.pricetxt
+    good.value.priceTxt = good.value.price.toFixed(2);
+  }
+
+  // 更新数量
+  const editNum = (e: any) => {
+    
+    let value = utils.trim(e.target.value);
+
+    // 写值给good
+    good.value.num = value === '' ? 1 : parseInt(value);
+
+  }
+
   // 提交数据
   const submit = () => {
 
@@ -57,10 +96,13 @@
     // 验证名称
     if (data.title == '') return vuemsg('标题不能为空');
 
-    if (data.num != Math.trunc(data.num)) return vuemsg('数量不能有小数');
+    // 判定数量是否存在小数
+    let num = data.num?.toString();
+
+    if (parseFloat(num) != parseInt(num)) return vuemsg('数量不能有小数');
 
     // 提交数据
-    emit('submit', {title: data.title, price: data.price || 0, num: data.num || 1}, props.index);
+    emit('submit', {title: data.title, price: data.price, num: data.num, priceTxt: data.price.toFixed(2)}, props.index);
 
   }
 

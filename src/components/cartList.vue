@@ -6,7 +6,7 @@
 				<div class="subtit flex justify-between">
 					<div class="price">
 						<text>单价:</text>
-						<text class="val">{{ item.price ? item.price.toFixed(2) : '0.00' }}</text>
+						<text class="val">{{ item.priceTxt || '0.00' }}</text>
 						<text>元</text>
 					</div>
 					<div class="num flex justify-between">

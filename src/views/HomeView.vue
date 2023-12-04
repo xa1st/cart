@@ -34,7 +34,7 @@
   </footer>
 
   <!-- 弹框 -->
-  <input-box :class="{ show: combox ? 'show': '' }" :good="goodItem" :index="index" @close="close" @submit="submit" v-show="combox"></input-box>
+  <input-box v-model:good="goodItem" :index="index" @close="close" @submit="submit" v-show="combox"></input-box>
 
   <!-- 遮罩层 -->
   <div class="mask" @click="close" v-if="mask"></div>
@@ -54,6 +54,7 @@
   import { vuepop } from 'vue3-popup';
 
   import 'vue3-popup/lib/style.css';
+import { watch } from 'vue';
 
   // 加载store
   const cartStore = useCartStore();
@@ -68,7 +69,7 @@
   const index = ref<string>("");
 
   // 商品信息
-	const goodItem = reactive<Good>({title: '', price: 0, num: 0});
+	const goodItem = reactive<Good>({title: '', price: 0, num: 0, priceTxt: '0.00'});
 
   // 总价
   const sum = computed<string>(() => cartStore.sum.toFixed(2));
@@ -84,8 +85,8 @@
 
     // 给框内内容赋值
     goodItem.title = good.title;
-    goodItem.price = good.price || 0;
-    goodItem.num = good.num || 0;
+    goodItem.price = good.price;
+    goodItem.num = good.num;
 
     // 当前操作的数据排序
     index.value = i.toString();
@@ -132,12 +133,12 @@
     if (index === '') {
 
       // 新增数据
-      cartStore.add({title: good.title, price: good.price, num: good.num});
+      cartStore.add(good);
 
     } else {
 
       // 这里是修改
-		  cartStore.update({title: good.title, price: good.price, num: good.num}, index);
+		  cartStore.update(good, index);
 
     }
 
@@ -160,7 +161,8 @@
     // 重置数据
     goodItem.title = '';
     goodItem.price = 0;
-    goodItem.num = 1;
+    goodItem.num = 0;
+    goodItem.priceTxt = ''
   }
 
 
@@ -173,10 +175,6 @@
     
   }
 
-
-  const ttt = () => {
-    
-  }
 
 </script>
 
