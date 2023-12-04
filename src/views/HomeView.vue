@@ -37,7 +37,7 @@
   <input-box v-model:good="goodItem" :index="index" @close="close" @submit="submit" v-show="combox"></input-box>
 
   <!-- 遮罩层 -->
-  <div class="mask" @click="close" v-if="mask"></div>
+  <div class="mask" :style="{height: bgHeight}" @click="close" v-show="mask"></div>
   
 </template>
 
@@ -51,10 +51,9 @@
 
   import inputBox from '@/components/inputBox.vue';
 
-  import { vuepop } from 'vue3-popup';
+  import { vuepop, vuemsg } from 'vue3-popup';
 
   import 'vue3-popup/lib/style.css';
-import { watch } from 'vue';
 
   // 加载store
   const cartStore = useCartStore();
@@ -69,10 +68,13 @@ import { watch } from 'vue';
   const index = ref<string>("");
 
   // 商品信息， 此处给num -1 是为了默认为
-	const goodItem = reactive<Good>({title: '', price: 0, num: -1, priceTxt: '0.00'});
+	const goodItem = reactive<Good>({title: '', price: 0, num: '', priceTxt: '0.00'});
 
   // 总价
   const sum = computed<string>(() => cartStore.sum.toFixed(2));
+
+  // 遮罩层高度
+  const bgHeight = computed<string>(() => (document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight) + 163 + 'px');
 
   // 加减按钮
   const change = (index:number, act: string) => act == 'inc' ? cartStore.num(index, 1) : cartStore.num(index, 2);;
@@ -129,6 +131,15 @@ import { watch } from 'vue';
   // 更新数据
   const submit = (good: Good, index: string) => {
 
+    console.log(good);
+
+    // 验证名称
+    if (good.title == '') return vuemsg('标题不能为空');
+
+    // 判定数量是否存在小数
+    let num = good.num?.toString();
+
+    if (parseFloat(num) != parseInt(num)) return vuemsg('数量不能有小数');
 
     if (index === '') {
 
@@ -161,7 +172,7 @@ import { watch } from 'vue';
     // 重置数据
     goodItem.title = '';
     goodItem.price = 0;
-    goodItem.num = -1;
+    goodItem.num = '';
     goodItem.priceTxt = ''
   }
 
