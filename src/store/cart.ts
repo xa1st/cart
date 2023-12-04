@@ -59,12 +59,12 @@ export const useCartStore = defineStore('cart', () => {
 		if (ind == -1) {
 
 			// 价格计算
-			let price = Math.round((data.price * 100)) / 100;
+			let price: Number = Math.round((data.price * 100)) / 100;
 			
 			state.datalist.push(<Good>{
 				title: utils.trim(data.title), 
 				price: price, 
-				num: parseInt(data.num), // 取整
+				num: data.num, // 取整
 				priceTxt: price.toFixed(2)
 			});
 			
