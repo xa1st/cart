@@ -68,8 +68,8 @@ import { watch } from 'vue';
   // 当前index
   const index = ref<string>("");
 
-  // 商品信息
-	const goodItem = reactive<Good>({title: '', price: 0, num: 0, priceTxt: '0.00'});
+  // 商品信息， 此处给num -1 是为了默认为
+	const goodItem = reactive<Good>({title: '', price: 0, num: -1, priceTxt: '0.00'});
 
   // 总价
   const sum = computed<string>(() => cartStore.sum.toFixed(2));
@@ -161,7 +161,7 @@ import { watch } from 'vue';
     // 重置数据
     goodItem.title = '';
     goodItem.price = 0;
-    goodItem.num = 0;
+    goodItem.num = -1;
     goodItem.priceTxt = ''
   }
 

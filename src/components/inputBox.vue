@@ -4,7 +4,7 @@
 
     <input type="text" class="input radius text-center" placeholder="请输入商品的名称,必填" :value.trim="good.title" @blur="editTit"/>
 		<input type="number" class="input radius text-center" placeholder="请输入商品的价格,单位:元,默认0.00" :value.number="good.price == 0 ? '' : good.price.toFixed(2)" @blur="editPrice"/>
-		<input type="number" class="input radius text-center" placeholder="请输入商品的数量,默认为1" :value.number="good.num == 0 ? '' : good.num " @blur="editNum"/>
+		<input type="number" class="input radius text-center" placeholder="请输入商品的数量,默认为1" :value.number="good.num < 0 ? '' : good.num " @blur="editNum"/>
 		<div class="addbtn text-center radius" @click.stop="submit">我填好了啦 ^_^</div>
 		<div class="closebtn" @click.stop="close"><i class="iconfont cartclose"/></div>
     
@@ -102,7 +102,7 @@
     if (parseFloat(num) != parseInt(num)) return vuemsg('数量不能有小数');
 
     // 提交数据
-    emit('submit', {title: data.title, price: data.price, num: data.num, priceTxt: data.price.toFixed(2)}, props.index);
+    emit('submit', {title: data.title, price: data.price, num: (data.num < 0 ? 1 : data.num), priceTxt: data.price.toFixed(2)}, props.index);
 
   }
 
