@@ -111,7 +111,7 @@
     min-height: 19.5rem;
     margin: 15vh auto; 
     z-index: 2;
-    position: absolute;
+    position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
