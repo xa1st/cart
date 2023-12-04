@@ -34,7 +34,7 @@
   </footer>
 
   <!-- 弹框 -->
-  <input-box v-model:good="goodItem" v-model:index="index" @close="close" @submit="submit" v-show="combox"></input-box>
+  <input-box v-model:good="goodItem" :index="index" @close="close" @submit="submit" v-show="combox"></input-box>
 
   <!-- 遮罩层 -->
   <div class="mask" :style="{height: bgHeight}" @click="close" v-show="mask"></div>
@@ -54,7 +54,6 @@
   import { vuepop, vuemsg } from 'vue3-popup';
 
   import 'vue3-popup/lib/style.css';
-import { watch } from 'vue';
 
   // 加载store
   const cartStore = useCartStore();
@@ -144,9 +143,6 @@ import { watch } from 'vue';
 
     index === '' ? cartStore.add(good) : cartStore.update(good, index);
 
-    // 重置数据
-    goodReset();
-
     // 关闭弹窗
     actBox(0);    
 
@@ -180,10 +176,6 @@ import { watch } from 'vue';
     if (act == 0) goodReset();
     
   }
-
-  watch(index, (newX) => {
-    console.log(newX);
-  }, {deep: true})
 
 </script>
 

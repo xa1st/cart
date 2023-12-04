@@ -98,6 +98,11 @@
     // 提交数据
     emit('submit', {title: data.title, price: data.price, num: (data.num == -1 ? 1 : data.num), priceTxt: data.price.toFixed(2)}, props.index);
 
+    // 直接清空
+    good.value.title = ''; 
+    good.value.price = 0;
+    good.value.num = -1, 
+    good.value.priceTxt = '';
   }
 
 

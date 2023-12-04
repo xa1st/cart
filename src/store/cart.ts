@@ -73,7 +73,7 @@ export const useCartStore = defineStore('cart', () => {
 		}
 		
 		// 如果存在，则直接加数量,前面加判定防止出现意外值
-		if (ind >= 0 && state.datalist[ind]) state.datalist[ind].num += data.num;		
+		if (ind >= 0 && state.datalist[ind]) state.datalist[ind].num += data.num;
 		
 	}
 
